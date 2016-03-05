@@ -65,7 +65,7 @@ public class TupleDesc implements Serializable {
             if(i < fieldAr.length)
                 itemAr[i] = new TDItem(typeAr[i], fieldAr[i]);
             else
-                itemAr[i] = new TDItem(typeAr[i], "");
+                itemAr[i] = new TDItem(typeAr[i], null);
         }
     }
 
@@ -87,8 +87,7 @@ public class TupleDesc implements Serializable {
      * @return the number of fields in this TupleDesc
      */
     public int numFields() {
-        // some code goes here
-        return 0;
+        return itemAr.length;
     }
 
     /**
@@ -101,8 +100,7 @@ public class TupleDesc implements Serializable {
      *             if i is not a valid field reference.
      */
     public String getFieldName(int i) throws NoSuchElementException {
-        // some code goes here
-        return null;
+        return itemAr[i].fieldName;
     }
 
     /**
@@ -116,8 +114,7 @@ public class TupleDesc implements Serializable {
      *             if i is not a valid field reference.
      */
     public Type getFieldType(int i) throws NoSuchElementException {
-        // some code goes here
-        return null;
+        return itemAr[i].fieldType;
     }
 
     /**
@@ -130,8 +127,10 @@ public class TupleDesc implements Serializable {
      *             if no field with a matching name is found.
      */
     public int fieldNameToIndex(String name) throws NoSuchElementException {
-        // some code goes here
-        return 0;
+        for(int i = 0; i < itemAr.length; i++)
+            if(itemAr[i].fieldName == name)
+                return i;
+        throw new NoSuchElementException();
     }
 
     /**
@@ -186,7 +185,11 @@ public class TupleDesc implements Serializable {
      * @return String describing this descriptor.
      */
     public String toString() {
-        // some code goes here
-        return "";
+        String result = "";
+        result += itemAr[0].fieldType + "(" + itemAr[0].fieldName + ")";
+        for(int i = 0; i < itemAr.length; i++){
+            result += "," + itemAr[i].fieldType + "(" + itemAr[i].fieldName + ")";
+        }
+        return result;
     }
 }
