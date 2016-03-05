@@ -19,7 +19,7 @@ public class TupleDesc implements Serializable {
          * The type of the field
          * */
         Type fieldType;
-        
+
         /**
          * The name of the field
          * */
@@ -45,6 +45,7 @@ public class TupleDesc implements Serializable {
         return null;
     }
 
+    private TDItem[] itemAr;
     private static final long serialVersionUID = 1L;
 
     /**
@@ -59,7 +60,13 @@ public class TupleDesc implements Serializable {
      *            be null.
      */
     public TupleDesc(Type[] typeAr, String[] fieldAr) {
-        // some code goes here
+        itemAr = new TDItem[typeAr.length];
+        for(int i = 0; i < typeAr.length; i++){
+            if(i < fieldAr.length)
+                itemAr[i] = new TDItem(typeAr[i], fieldAr[i]);
+            else
+                itemAr[i] = new TDItem(typeAr[i], "");
+        }
     }
 
     /**
@@ -71,7 +78,9 @@ public class TupleDesc implements Serializable {
      *            TupleDesc. It must contain at least one entry.
      */
     public TupleDesc(Type[] typeAr) {
-        // some code goes here
+        itemAr = new TDItem[typeAr.length];
+        for(int i = 0; i < typeAr.length; i++)
+            itemAr[i] = new TDItem(typeAr[i], "");
     }
 
     /**
