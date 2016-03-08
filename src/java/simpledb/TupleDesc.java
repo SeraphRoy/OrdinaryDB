@@ -35,18 +35,46 @@ public class TupleDesc implements Serializable {
         }
     }
 
+    private class TDIterator implements Iterator<TDItem>{
+        private int cursor;
+
+        public TDIterator(){
+            cursor = -1;
+        }
+
+        public void open(){
+            cursor = 0;
+        }
+
+        public boolean hasNext(){
+            return cursor < TupleDesc.this.itemAr.length - 1;
+        }
+
+        public TDItem next(){
+            return TupleDesc.this.itemAr[cursor];
+        }
+
+        public void rewind(){
+            close();
+            open();
+        }
+
+        public void close(){
+            cursor = -1;
+        }
+    }
     /**
      * @return
      *        An iterator which iterates over all the field TDItems
      *        that are included in this TupleDesc
      * */
     public Iterator<TDItem> iterator() {
-        // some code goes here
-        return null;
+        return new TDIterator();
     }
 
     private TDItem[] itemAr;
     private static final long serialVersionUID = 1L;
+
 
     /**
      * Create a new TupleDesc with typeAr.length fields with fields of the
