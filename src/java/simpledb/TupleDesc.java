@@ -185,6 +185,8 @@ public class TupleDesc implements Serializable {
      * @return true if the object is equal to this TupleDesc.
      */
     public boolean equals(Object o) {
+        if(o == null)
+            return false;
         if(!(o instanceof TupleDesc))
             return false;
         TupleDesc d = (TupleDesc)o;
