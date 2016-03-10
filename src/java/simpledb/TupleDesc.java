@@ -185,8 +185,20 @@ public class TupleDesc implements Serializable {
      * @return true if the object is equal to this TupleDesc.
      */
     public boolean equals(Object o) {
-        // some code goes here
-        return false;
+        if(!(o instanceof TupleDesc))
+            return false;
+        TupleDesc d = (TupleDesc)o;
+        if(this.numFields() != d.numFields() || this.getSize() != d.getSize())
+            return false;
+        Iterator<TDItem> it1 = this.iterator();
+        Iterator<TDItem> it2 = d.iterator();
+        while(it1.hasNext() && it2.hasNext()){
+            TDItem temp1 = it1.next();
+            TDItem temp2 = it2.next();
+            if(!temp1.fieldType.equals(temp2.fieldType) || !temp1.fieldName.equals(temp2.fieldName))
+                return false;
+        }
+        return true;
     }
 
     public int hashCode() {
