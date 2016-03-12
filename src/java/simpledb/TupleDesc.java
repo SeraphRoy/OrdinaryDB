@@ -47,6 +47,14 @@ public class TupleDesc implements Serializable {
     private ArrayList<TDItem> itemAr;
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Create a new TupleDesc copied from t
+     * @param td
+     *            TupleDesc instance to copy from
+     */
+    public TupleDesc(TupleDesc td){
+        itemAr = new ArrayList<TDItem>(td.itemAr);
+    }
 
     /**
      * Create a new TupleDesc with typeAr.length fields with fields of the
@@ -181,7 +189,7 @@ public class TupleDesc implements Serializable {
      * type in this TupleDesc is equal to the n-th type in td.
      * 
      * @param o
-     *            the Object to be compared for equality with this TupleDesc.
+     *            The Object to be compared for equality with this TupleDesc.
      * @return true if the object is equal to this TupleDesc.
      */
     public boolean equals(Object o) {
